@@ -215,26 +215,26 @@ public class ControlleurHumain {
         Integer rowIndex = GD.getRowIndex(source) == null ? 0 : GD.getRowIndex(source);
         Integer colIndex = GD.getColumnIndex(source) == null ? 0 : GD.getColumnIndex(source);
 
-        if (playerTurn > 0) {
-            idCurrentPlayer.setText("Tour du premier Joueur");
+        if (playerTurn == 1) {
+            idCurrentPlayer.setText("Tour du premier joueur");  // Indicate Player 1's turn
             if (optionSelectionner) {
                 selectionner(colIndex, rowIndex);
             } else {
                 deplacer(colIndex, rowIndex);
-                Thread.sleep(1000);
             }
-            playerTurn *= -1;
         } else {
-            idCurrentPlayer.setText("Tour du deuxième Joueur");
+            idCurrentPlayer.setText("Tour du deuxième joueur");  // Indicate Player 2's turn
             if (optionSelectionner) {
                 selectionner(colIndex, rowIndex);
             } else {
                 deplacer(colIndex, rowIndex);
-                Thread.sleep(1000);
             }
-            playerTurn *= -1;
         }
+
+        playerTurn = playerTurn == 1 ? 2 : 1;
+
     }
+
 
 
     public void disableAllNode (){
