@@ -15,6 +15,9 @@ import javafx.scene.layout.GridPane;
 public class ControlleurHumain {
 
     @FXML
+    private Button restartButton;
+
+    @FXML
     private GridPane GD;
 
     @FXML
@@ -216,14 +219,14 @@ public class ControlleurHumain {
         Integer colIndex = GD.getColumnIndex(source) == null ? 0 : GD.getColumnIndex(source);
 
         if (playerTurn == 1) {
-            idCurrentPlayer.setText("Tour du premier joueur");  // Indicate Player 1's turn
+            idCurrentPlayer.setText("Premier joueur");  // Indicate Player 1's turn
             if (optionSelectionner) {
                 selectionner(colIndex, rowIndex);
             } else {
                 deplacer(colIndex, rowIndex);
             }
         } else {
-            idCurrentPlayer.setText("Tour du deuxième joueur");  // Indicate Player 2's turn
+            idCurrentPlayer.setText("Deuxième joueur");  // Indicate Player 2's turn
             if (optionSelectionner) {
                 selectionner(colIndex, rowIndex);
             } else {
