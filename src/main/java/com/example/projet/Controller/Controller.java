@@ -130,7 +130,7 @@ public class Controller {
         lateralButtons.forEach(button ->{ if(button.isDisabled()){
             button.setDisable(false);} });
         idAfficherWinner.setText("");
-        idCurrentPlayer.setText("c'est le tour Humain");
+        idCurrentPlayer.setText("Commencez !!!");
         optionSelectionner= true;
         myArrayDest1 = new ArrayList<Position>();
         myArraySource1= p.SourceCaseJouable(playerTurn);
