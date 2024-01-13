@@ -101,6 +101,7 @@ public class Controller {
     @FXML
     private Label idCurrentPlayer;
 
+    ModeJeu modeJeu = new ModeJeu();
 
     PlayerHumain humainPlayr = new PlayerHumain();
     Plateau p = new Plateau();
@@ -130,6 +131,7 @@ public class Controller {
         lateralButtons.forEach(button ->{ if(button.isDisabled()){
             button.setDisable(false);} });
         idAfficherWinner.setText("");
+        System.out.println(modeJeu.getMode());
         idCurrentPlayer.setText("Commencez !!!");
         optionSelectionner= true;
         myArrayDest1 = new ArrayList<Position>();
@@ -224,9 +226,67 @@ public class Controller {
         }
     }
 
+    public void deplacerContreHumain(Integer rowIndex, Integer colIndex) {
+        selectionneDestination = new Position(colIndex, rowIndex);
 
-    @FXML
-    void jouer(ActionEvent e) throws InterruptedException{
+        if (myArrayDest1.stream().anyMatch(position -> position.x == selectionneDestination.x && position.y == selectionneDestination.y)) {
+            humainPlayr.movement(selectionneSource, selectionneDestination, playerTurn, p.game);
+            UpdateAffichage();
+
+            // Check for a winner or switch to the next player's turn
+            if (p.Solved() == -10) {
+                // Humain a gagné
+                idAfficherWinner.setText("Joueur " + playerTurn + " a gagné ! Félicitations");
+                System.out.println("Joueur " + playerTurn + " a gagné ! Félicitations");
+                disableAllNode();
+            } else if (p.Solved() == 10) {
+                // Humain 2 a gagné
+                idAfficherWinner.setText("Joueur " + playerTurn + " a gagné ! Félicitations");
+                System.out.println("Joueur " + playerTurn + " a gagné ! Félicitations");
+                disableAllNode();
+            } else {
+                // Switch to the next player's turn
+                playerTurn = (playerTurn == 1) ? 2 : 1;
+                myArrayDest1.clear();
+                myArraySource1 = p.SourceCaseJouable(playerTurn);
+                disableAllNode();
+                EnableButtons(myArraySource1);
+                optionSelectionner = true;
+                UpdateAffichage();
+                p.afficheBoard();
+            }
+        }
+    }
+
+
+    //jouer Contre Humain
+    void jouerContreHumain(ActionEvent e) throws InterruptedException {
+        Node source = (Node) e.getSource();
+        Integer rowIndex = GD.getRowIndex(source) == null ? 0 : GD.getRowIndex(source);
+        Integer colIndex = GD.getColumnIndex(source) == null ? 0 : GD.getColumnIndex(source);
+
+        if (playerTurn == 1) {
+            idCurrentPlayer.setText("Premier joueur");  // Indicate Player 1's turn
+            if (optionSelectionner) {
+                selectionner(colIndex, rowIndex);
+            } else {
+                deplacerContreHumain(colIndex, rowIndex);
+            }
+        } else {
+            idCurrentPlayer.setText("Deuxième joueur");  // Indicate Player 2's turn
+            if (optionSelectionner) {
+                selectionner(colIndex, rowIndex);
+            } else {
+                deplacerContreHumain(colIndex, rowIndex);
+            }
+        }
+
+        playerTurn = playerTurn == 1 ? 2 : 1;
+
+    }
+
+    //jouer Contre IA
+    void jouerContreIA(ActionEvent e) throws InterruptedException{
         idCurrentPlayer.setText("Tour Humain ");
         Node source = (Node) e.getSource();
         Integer rowIndex = GD.getRowIndex(source)==null? 0: GD.getRowIndex(source);
@@ -234,7 +294,7 @@ public class Controller {
         System.out.println(rowIndex+""+colIndex);
         // Si c'est le premier clique alors selectionner une case sinon déplacer et passer le turn aux deuxième player
         if(playerTurn==1) {
-            idCurrentPlayer.setText("Tour Humain ");
+            idCurrentPlayer.setText("Tour Humain");
             if (optionSelectionner) {
                 selectionner(colIndex, rowIndex);
 
@@ -274,6 +334,16 @@ public class Controller {
     }
 
 
+    @FXML
+    void jouer(ActionEvent e) throws InterruptedException{
+        if(modeJeu.getMode()==1){
+            jouerContreHumain(e);
+        }else if(modeJeu.getMode()==2){
+            jouerContreIA(e);
+        }
+    }
+
+
     public void disableAllNode (){
         ObservableList<Node> allButtons = GD.getChildren();
 
@@ -303,4 +373,7 @@ public class Controller {
         EnableButtons(myArraySource1);
     }
 
+    public void setModeJeu(ModeJeu modeJeu) {
+        this.modeJeu = modeJeu;
+    }
 }

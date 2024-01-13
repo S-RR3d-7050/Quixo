@@ -102,11 +102,12 @@ public class ControlleurHumain {
     private Label idCurrentPlayer;
 
 
+    ModeJeu modeJeu = new ModeJeu();
     PlayerHumain humainPlayr = new PlayerHumain();
     Plateau p = new Plateau();
     public int playerTurn = 1;
 
-    public static int secondPlayerTurn = 2;
+    //public static int secondPlayerTurn = 2;
     public boolean optionSelectionner = true;
     ArrayList<Position> myArrayDest1 = new ArrayList<>();
     ArrayList<Position> myArraySource1 = p.SourceCaseJouable(playerTurn);
@@ -260,12 +261,16 @@ public class ControlleurHumain {
                     node.setDisable(false);
             }
         }
-
     }
 
     @FXML
     void initialize() {
         disableAllNode();
         EnableButtons(myArraySource1);
+        System.out.println("Mode de jeu : " + modeJeu.getMode());
+    }
+
+    public void setModeJeu(ModeJeu modeJeu) {
+        this.modeJeu = modeJeu;
     }
 }
