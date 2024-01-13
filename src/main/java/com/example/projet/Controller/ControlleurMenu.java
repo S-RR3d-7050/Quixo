@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Menu {
+public class ControlleurMenu {
 
     // Set the game mode
     public ModeJeu modeJeu = new ModeJeu();
@@ -40,7 +40,7 @@ public class Menu {
     private void jouerContreIA(ActionEvent event) throws IOException {
         try {
             // Load view.fxml using a reliable path
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/projet/view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/projet/view/view.fxml"));
             Parent root = loader.load();
 
             // Create an instance of your controller
@@ -68,7 +68,7 @@ public class Menu {
     private void jouerContreHumain(ActionEvent event) {
         try {
             // Load view.fxml using a reliable path
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/projet/view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/projet/view/view.fxml"));
             Parent root = loader.load();
 
             // Create an instance of your controller

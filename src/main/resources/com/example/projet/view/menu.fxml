@@ -5,9 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projet.Controller.Menu">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projet.Controller.ControlleurMenu">
     <stylesheets>
-        <URL value="@style.css" />
+        <URL value="@../style/style-menu.css" />
     </stylesheets>
         <Label layoutX="178.0" layoutY="48.0" prefHeight="111.0" prefWidth="245.0" styleClass="label-bonjour" text="QUIXO-GAME" textAlignment="CENTER" wrapText="true" />
         <Label layoutX="178.0" layoutY="159.0" prefHeight="30.0" prefWidth="245.0" styleClass="label" text="Choisissez votre adversaire :" textAlignment="CENTER" wrapText="true" />

@@ -1,6 +1,6 @@
 /* Style de base pour l'AnchorPane */
 .root {
-    -fx-background-image: url('bg.png');
+    -fx-background-image: url('../images/bg.png');
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center center;

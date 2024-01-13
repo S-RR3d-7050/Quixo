@@ -12,7 +12,7 @@ public  class Application extends javafx.application.Application {
 
 
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("view.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/projet/view/menu.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
