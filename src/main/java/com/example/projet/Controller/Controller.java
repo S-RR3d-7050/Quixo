@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 public class Controller {
 
@@ -144,20 +143,20 @@ public class Controller {
         if (p.game[0][0]== 2){bt00.setText("X");}else if (p.game[0][0]== 1){bt00.setText("O"); } else {bt00.setText(""); }
         if (p.game[0][1]== 2){bt10.setText("X");}else if (p.game[0][1]== 1) {bt10.setText("O");} else {bt10.setText("");}
         if (p.game[0][2]== 2){bt20.setText("X");}else if (p.game[0][2]== 1) bt20.setText("O"); else {bt20.setText("");}
-        if (p.game[0][3]== 2){bt30.setText("X");}else if (p.game[0][3]== 1) bt30.setText("O"); else {bt30.setText("");}
-        if (p.game[0][4]== 2){bt40.setText("X");}else if (p.game[0][4]== 1) bt40.setText("O"); else {bt40.setText("");}
+        if (p.game[0][3]== 2){bt30.setText("X");}else if (p.game[0][3]== 1) bt30.setText("O");else {bt30.setText("");}
+        if (p.game[0][4]== 2){bt40.setText("X");}else if (p.game[0][4]== 1) bt40.setText("O");else {bt40.setText("");}
         if (p.game[1][0]== 2){bt01.setText("X");}else if (p.game[1][0]== 1) bt01.setText("O");else {bt01.setText("");}
         if (p.game[1][1]== 2){bt11.setText("X");}else if (p.game[1][1]== 1) bt11.setText("O");else {bt11.setText("");}
         if (p.game[1][2]== 2){bt21.setText("X");}else if (p.game[1][2]== 1) bt21.setText("O");else {bt21.setText("");}
         if (p.game[1][3]== 2){bt31.setText("X");}else if (p.game[1][3]== 1) bt31.setText("O");else {bt31.setText("");}
         if (p.game[1][4]== 2){bt41.setText("X");}else if (p.game[1][4]== 1) bt41.setText("O");else {bt41.setText("");}
         if (p.game[2][0]== 2){bt02.setText("X");}else if (p.game[2][0]== 1) bt02.setText("O");else {bt02.setText("");}
-        if (p.game[2][1]== 2){bt12.setText("X");}else if (p.game[2][1]== 1) bt12.setText("O"); else {bt12.setText("");}
+        if (p.game[2][1]== 2){bt12.setText("X");}else if (p.game[2][1]== 1) bt12.setText("O");else {bt12.setText("");}
         if (p.game[2][2]== 2){bt22.setText("X");}else if (p.game[2][2]== 1) bt22.setText("O");else {bt22.setText("");}
         if (p.game[2][3]== 2){bt32.setText("X");}else if (p.game[2][3]== 1) bt32.setText("O");else {bt32.setText("");}
         if (p.game[2][4]== 2){bt42.setText("X");}else if (p.game[2][4]== 1) bt42.setText("O");else {bt42.setText("");}
         if (p.game[3][0]== 2){bt03.setText("X");}else if (p.game[3][0]== 1) bt03.setText("O");else {bt03.setText("");}
-        if (p.game[3][1]== 2){bt13.setText("X");}else if (p.game[3][1]== 1) bt13.setText("O"); else {bt13.setText("");}
+        if (p.game[3][1]== 2){bt13.setText("X");}else if (p.game[3][1]== 1) bt13.setText("O");else {bt13.setText("");}
         if (p.game[3][2]== 2){bt23.setText("X");}else if (p.game[3][2]== 1) bt23.setText("O");else {bt23.setText("");}
         if (p.game[3][3]== 2){bt33.setText("X");}else if (p.game[3][3]== 1) bt33.setText("O");else {bt33.setText("");}
         if (p.game[3][4]== 2){bt43.setText("X");}else if (p.game[3][4]== 1) bt43.setText("O");else {bt43.setText("");}
@@ -193,6 +192,18 @@ public class Controller {
 
     }
 
+    // Dialog box to display the winner
+    public void displayWinner(String winner) {
+        //idAfficherWinner.setText(winner);
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Gagnant");
+        dialog.setContentText(winner);
+        // Add an exit button to the dialog pane
+        ButtonType type = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(type);
+        dialog.showAndWait();
+    }
+
     public void deplacer(Integer rowIndex, Integer colIndex){
         selectionneDestination = new Position(colIndex, rowIndex);
 
@@ -201,14 +212,15 @@ public class Controller {
             humainPlayr.movement(selectionneSource,selectionneDestination,playerTurn,p.game);
             UpdateAffichage();
             if(p.Solved()==-10){
-                idAfficherWinner.setText("Humain a gagner ! Félicitation ");
-
+                //idAfficherWinner.setText("Humain a gagner ! Félicitation ");
+                displayWinner("Humain a gagner ! Félicitation");
                 System.out.println("Humain a gagner ! Félicitation");
 
                 //desable All
                 disableAllNode();
             }else if(p.Solved()==10){
-                idAfficherWinner.setText("IA a gagner !  ");
+                //idAfficherWinner.setText("IA a gagner !  ");
+                displayWinner("IA a gagner !");
                 System.out.println("IA a Gagner !");
                 disableAllNode();
             }else{
@@ -236,12 +248,14 @@ public class Controller {
             // Check for a winner or switch to the next player's turn
             if (p.Solved() == -10) {
                 // Humain a gagné
-                idAfficherWinner.setText("Joueur " + playerTurn + " a gagné ! Félicitations");
+                //idAfficherWinner.setText("Joueur " + playerTurn + " a gagné ! Félicitations");
+                displayWinner("Joueur " + playerTurn + " a gagné ! Félicitations");
                 System.out.println("Joueur " + playerTurn + " a gagné ! Félicitations");
                 disableAllNode();
             } else if (p.Solved() == 10) {
                 // Humain 2 a gagné
-                idAfficherWinner.setText("Joueur " + playerTurn + " a gagné ! Félicitations");
+                //idAfficherWinner.setText("Joueur " + playerTurn + " a gagné ! Félicitations");
+                displayWinner("Joueur " + playerTurn + " a gagné ! Félicitations");
                 System.out.println("Joueur " + playerTurn + " a gagné ! Félicitations");
                 disableAllNode();
             } else {
